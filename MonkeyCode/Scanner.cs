@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MonkeyCode
 {
-    class Scanner
+    internal class Scanner
     {
         public Scanner(string inputString)
         {
@@ -84,11 +82,26 @@ namespace MonkeyCode
         {
             try
             {
-                if (ScanBuffer[ScanPointer + 0] != 'B' && ScanBuffer[ScanPointer + 0] != 'b') { return false; }
-                if (ScanBuffer[ScanPointer + 1] != 'O' && ScanBuffer[ScanPointer + 1] != 'o') { return false; }
-                if (ScanBuffer[ScanPointer + 2] != 'O' && ScanBuffer[ScanPointer + 2] != 'o') { return false; }
-                if (ScanBuffer[ScanPointer + 3] != 'L' && ScanBuffer[ScanPointer + 3] != 'l') { return false; }
-                if (IsIdentifierChar(ScanBuffer[ScanPointer + 4])) { return false; }
+                if (ScanBuffer[ScanPointer + 0] != 'B' && ScanBuffer[ScanPointer + 0] != 'b')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 1] != 'O' && ScanBuffer[ScanPointer + 1] != 'o')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 2] != 'O' && ScanBuffer[ScanPointer + 2] != 'o')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 3] != 'L' && ScanBuffer[ScanPointer + 3] != 'l')
+                {
+                    return false;
+                }
+                if (IsIdentifierChar(ScanBuffer[ScanPointer + 4]))
+                {
+                    return false;
+                }
                 ScanPointer += 4;
                 return true;
             }
@@ -102,13 +115,34 @@ namespace MonkeyCode
         {
             try
             {
-                if (ScanBuffer[ScanPointer + 0] != 'S' && ScanBuffer[ScanPointer + 0] != 's') { return false; }
-                if (ScanBuffer[ScanPointer + 1] != 'T' && ScanBuffer[ScanPointer + 1] != 't') { return false; }
-                if (ScanBuffer[ScanPointer + 2] != 'R' && ScanBuffer[ScanPointer + 2] != 'r') { return false; }
-                if (ScanBuffer[ScanPointer + 3] != 'I' && ScanBuffer[ScanPointer + 3] != 'i') { return false; }
-                if (ScanBuffer[ScanPointer + 4] != 'N' && ScanBuffer[ScanPointer + 4] != 'n') { return false; }
-                if (ScanBuffer[ScanPointer + 5] != 'G' && ScanBuffer[ScanPointer + 5] != 'g') { return false; }
-                if (IsIdentifierChar(ScanBuffer[ScanPointer + 6])) { return false; }
+                if (ScanBuffer[ScanPointer + 0] != 'S' && ScanBuffer[ScanPointer + 0] != 's')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 1] != 'T' && ScanBuffer[ScanPointer + 1] != 't')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 2] != 'R' && ScanBuffer[ScanPointer + 2] != 'r')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 3] != 'I' && ScanBuffer[ScanPointer + 3] != 'i')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 4] != 'N' && ScanBuffer[ScanPointer + 4] != 'n')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 5] != 'G' && ScanBuffer[ScanPointer + 5] != 'g')
+                {
+                    return false;
+                }
+                if (IsIdentifierChar(ScanBuffer[ScanPointer + 6]))
+                {
+                    return false;
+                }
                 ScanPointer += 6;
                 return true;
             }
@@ -117,16 +151,35 @@ namespace MonkeyCode
                 return false;
             }
         }
+
         private bool ScanFloatTypeKeyword()
         {
             try
             {
-                if (ScanBuffer[ScanPointer + 0] != 'F' && ScanBuffer[ScanPointer + 0] != 'f') { return false; }
-                if (ScanBuffer[ScanPointer + 1] != 'L' && ScanBuffer[ScanPointer + 1] != 'l') { return false; }
-                if (ScanBuffer[ScanPointer + 2] != 'O' && ScanBuffer[ScanPointer + 2] != 'o') { return false; }
-                if (ScanBuffer[ScanPointer + 3] != 'A' && ScanBuffer[ScanPointer + 3] != 'a') { return false; }
-                if (ScanBuffer[ScanPointer + 4] != 'T' && ScanBuffer[ScanPointer + 4] != 't') { return false; }
-                if (IsIdentifierChar(ScanBuffer[ScanPointer + 5])) { return false; }
+                if (ScanBuffer[ScanPointer + 0] != 'F' && ScanBuffer[ScanPointer + 0] != 'f')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 1] != 'L' && ScanBuffer[ScanPointer + 1] != 'l')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 2] != 'O' && ScanBuffer[ScanPointer + 2] != 'o')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 3] != 'A' && ScanBuffer[ScanPointer + 3] != 'a')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 4] != 'T' && ScanBuffer[ScanPointer + 4] != 't')
+                {
+                    return false;
+                }
+                if (IsIdentifierChar(ScanBuffer[ScanPointer + 5]))
+                {
+                    return false;
+                }
                 ScanPointer += 5;
                 return true;
             }
@@ -135,18 +188,43 @@ namespace MonkeyCode
                 return false;
             }
         }
+
         private bool ScanIntegerTypeKeyword()
         {
             try
             {
-                if (ScanBuffer[ScanPointer + 0] != 'I' && ScanBuffer[ScanPointer + 0] != 'i') { return false; }
-                if (ScanBuffer[ScanPointer + 1] != 'N' && ScanBuffer[ScanPointer + 1] != 'n') { return false; }
-                if (ScanBuffer[ScanPointer + 2] != 'T' && ScanBuffer[ScanPointer + 2] != 't') { return false; }
-                if (ScanBuffer[ScanPointer + 3] != 'E' && ScanBuffer[ScanPointer + 3] != 'e') { return false; }
-                if (ScanBuffer[ScanPointer + 4] != 'G' && ScanBuffer[ScanPointer + 4] != 'g') { return false; }
-                if (ScanBuffer[ScanPointer + 5] != 'E' && ScanBuffer[ScanPointer + 5] != 'e') { return false; }
-                if (ScanBuffer[ScanPointer + 6] != 'R' && ScanBuffer[ScanPointer + 6] != 'r') { return false; }
-                if (IsIdentifierChar(ScanBuffer[ScanPointer + 7])) { return false; }
+                if (ScanBuffer[ScanPointer + 0] != 'I' && ScanBuffer[ScanPointer + 0] != 'i')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 1] != 'N' && ScanBuffer[ScanPointer + 1] != 'n')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 2] != 'T' && ScanBuffer[ScanPointer + 2] != 't')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 3] != 'E' && ScanBuffer[ScanPointer + 3] != 'e')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 4] != 'G' && ScanBuffer[ScanPointer + 4] != 'g')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 5] != 'E' && ScanBuffer[ScanPointer + 5] != 'e')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 6] != 'R' && ScanBuffer[ScanPointer + 6] != 'r')
+                {
+                    return false;
+                }
+                if (IsIdentifierChar(ScanBuffer[ScanPointer + 7]))
+                {
+                    return false;
+                }
                 ScanPointer += 7;
                 return true;
             }
@@ -155,11 +233,15 @@ namespace MonkeyCode
                 return false;
             }
         }
+
         private bool ScanOperatorLeftParen()
         {
             try
             {
-                if (ScanBuffer[ScanPointer + 0] != '(' && ScanBuffer[ScanPointer + 0] != '(') { return false; }
+                if (ScanBuffer[ScanPointer + 0] != '(' && ScanBuffer[ScanPointer + 0] != '(')
+                {
+                    return false;
+                }
                 ScanPointer += 1;
                 return true;
             }
@@ -168,11 +250,15 @@ namespace MonkeyCode
                 return false;
             }
         }
+
         private bool ScanOperatorRightParen()
         {
             try
             {
-                if (ScanBuffer[ScanPointer + 0] != ')' && ScanBuffer[ScanPointer + 0] != ')') { return false; }
+                if (ScanBuffer[ScanPointer + 0] != ')' && ScanBuffer[ScanPointer + 0] != ')')
+                {
+                    return false;
+                }
                 ScanPointer += 1;
                 return true;
             }
@@ -181,11 +267,15 @@ namespace MonkeyCode
                 return false;
             }
         }
+
         private bool ScanOperatorSemicolon()
         {
             try
             {
-                if (ScanBuffer[ScanPointer + 0] != ';' && ScanBuffer[ScanPointer + 0] != ';') { return false; }
+                if (ScanBuffer[ScanPointer + 0] != ';' && ScanBuffer[ScanPointer + 0] != ';')
+                {
+                    return false;
+                }
                 ScanPointer += 1;
                 return true;
             }
@@ -194,11 +284,15 @@ namespace MonkeyCode
                 return false;
             }
         }
+
         private bool ScanOperatorEquals()
         {
             try
             {
-                if (ScanBuffer[ScanPointer + 0] != '=' && ScanBuffer[ScanPointer + 0] != '=') { return false; }
+                if (ScanBuffer[ScanPointer + 0] != '=' && ScanBuffer[ScanPointer + 0] != '=')
+                {
+                    return false;
+                }
                 ScanPointer += 1;
                 return true;
             }
@@ -207,12 +301,19 @@ namespace MonkeyCode
                 return false;
             }
         }
+
         private bool ScanOperatorNotEquals()
         {
             try
             {
-                if (ScanBuffer[ScanPointer + 0] != '<' && ScanBuffer[ScanPointer + 0] != '<') { return false; }
-                if (ScanBuffer[ScanPointer + 1] != '>' && ScanBuffer[ScanPointer + 1] != '>') { return false; }
+                if (ScanBuffer[ScanPointer + 0] != '<' && ScanBuffer[ScanPointer + 0] != '<')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 1] != '>' && ScanBuffer[ScanPointer + 1] != '>')
+                {
+                    return false;
+                }
                 ScanPointer += 2;
                 return true;
             }
@@ -221,11 +322,15 @@ namespace MonkeyCode
                 return false;
             }
         }
+
         private bool ScanOperatorGreaterThan()
         {
             try
             {
-                if (ScanBuffer[ScanPointer + 0] != '>' && ScanBuffer[ScanPointer + 0] != '>') { return false; }
+                if (ScanBuffer[ScanPointer + 0] != '>' && ScanBuffer[ScanPointer + 0] != '>')
+                {
+                    return false;
+                }
                 ScanPointer += 1;
                 return true;
             }
@@ -234,12 +339,19 @@ namespace MonkeyCode
                 return false;
             }
         }
+
         private bool ScanOperatorLessThan()
         {
             try
             {
-                if (ScanBuffer[ScanPointer + 0] != '<' && ScanBuffer[ScanPointer + 0] != '<') { return false; }
-                if (IsIdentifierChar(ScanBuffer[ScanPointer + 1])) { return false; }
+                if (ScanBuffer[ScanPointer + 0] != '<' && ScanBuffer[ScanPointer + 0] != '<')
+                {
+                    return false;
+                }
+                if (IsIdentifierChar(ScanBuffer[ScanPointer + 1]))
+                {
+                    return false;
+                }
                 ScanPointer += 1;
                 return true;
             }
@@ -248,12 +360,19 @@ namespace MonkeyCode
                 return false;
             }
         }
+
         private bool ScanOperatorGreaterThanEqualTo()
         {
             try
             {
-                if (ScanBuffer[ScanPointer + 0] != '>' && ScanBuffer[ScanPointer + 0] != '>') { return false; }
-                if (ScanBuffer[ScanPointer + 1] != '=' && ScanBuffer[ScanPointer + 1] != '=') { return false; }
+                if (ScanBuffer[ScanPointer + 0] != '>' && ScanBuffer[ScanPointer + 0] != '>')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 1] != '=' && ScanBuffer[ScanPointer + 1] != '=')
+                {
+                    return false;
+                }
                 ScanPointer += 2;
                 return true;
             }
@@ -262,12 +381,19 @@ namespace MonkeyCode
                 return false;
             }
         }
+
         private bool ScanOperatorLessThanEqualTo()
         {
             try
             {
-                if (ScanBuffer[ScanPointer + 0] != '<' && ScanBuffer[ScanPointer + 0] != '<') { return false; }
-                if (ScanBuffer[ScanPointer + 1] != '=' && ScanBuffer[ScanPointer + 1] != '=') { return false; }
+                if (ScanBuffer[ScanPointer + 0] != '<' && ScanBuffer[ScanPointer + 0] != '<')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 1] != '=' && ScanBuffer[ScanPointer + 1] != '=')
+                {
+                    return false;
+                }
                 ScanPointer += 2;
                 return true;
             }
@@ -276,11 +402,15 @@ namespace MonkeyCode
                 return false;
             }
         }
+
         private bool ScanOperatorNot()
         {
             try
             {
-                if (ScanBuffer[ScanPointer + 0] != '!' && ScanBuffer[ScanPointer + 0] != '!') { return false; }
+                if (ScanBuffer[ScanPointer + 0] != '!' && ScanBuffer[ScanPointer + 0] != '!')
+                {
+                    return false;
+                }
                 ScanPointer += 1;
                 return true;
             }
@@ -289,15 +419,31 @@ namespace MonkeyCode
                 return false;
             }
         }
+
         private bool ScanBooleanTrueLiteral()
         {
             try
             {
-                if (ScanBuffer[ScanPointer + 0] != 'T' && ScanBuffer[ScanPointer + 0] != 't') { return false; }
-                if (ScanBuffer[ScanPointer + 1] != 'R' && ScanBuffer[ScanPointer + 1] != 'r') { return false; }
-                if (ScanBuffer[ScanPointer + 2] != 'U' && ScanBuffer[ScanPointer + 2] != 'u') { return false; }
-                if (ScanBuffer[ScanPointer + 3] != 'E' && ScanBuffer[ScanPointer + 3] != 'e') { return false; }
-                if (IsIdentifierChar(ScanBuffer[ScanPointer + 5])) { return false; }
+                if (ScanBuffer[ScanPointer + 0] != 'T' && ScanBuffer[ScanPointer + 0] != 't')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 1] != 'R' && ScanBuffer[ScanPointer + 1] != 'r')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 2] != 'U' && ScanBuffer[ScanPointer + 2] != 'u')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 3] != 'E' && ScanBuffer[ScanPointer + 3] != 'e')
+                {
+                    return false;
+                }
+                if (IsIdentifierChar(ScanBuffer[ScanPointer + 5]))
+                {
+                    return false;
+                }
                 ScanPointer += 4;
                 return true;
             }
@@ -306,16 +452,35 @@ namespace MonkeyCode
                 return false;
             }
         }
+
         private bool ScanBooleanFalseLiteral()
         {
             try
             {
-                if (ScanBuffer[ScanPointer + 0] != 'F' && ScanBuffer[ScanPointer + 0] != 'f') { return false; }
-                if (ScanBuffer[ScanPointer + 1] != 'A' && ScanBuffer[ScanPointer + 1] != 'a') { return false; }
-                if (ScanBuffer[ScanPointer + 2] != 'L' && ScanBuffer[ScanPointer + 2] != 'l') { return false; }
-                if (ScanBuffer[ScanPointer + 3] != 'S' && ScanBuffer[ScanPointer + 3] != 's') { return false; }
-                if (ScanBuffer[ScanPointer + 4] != 'E' && ScanBuffer[ScanPointer + 4] != 'e') { return false; }
-                if (IsIdentifierChar(ScanBuffer[ScanPointer + 5])) { return false; }
+                if (ScanBuffer[ScanPointer + 0] != 'F' && ScanBuffer[ScanPointer + 0] != 'f')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 1] != 'A' && ScanBuffer[ScanPointer + 1] != 'a')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 2] != 'L' && ScanBuffer[ScanPointer + 2] != 'l')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 3] != 'S' && ScanBuffer[ScanPointer + 3] != 's')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 4] != 'E' && ScanBuffer[ScanPointer + 4] != 'e')
+                {
+                    return false;
+                }
+                if (IsIdentifierChar(ScanBuffer[ScanPointer + 5]))
+                {
+                    return false;
+                }
                 ScanPointer += 5;
                 return true;
             }
@@ -329,7 +494,10 @@ namespace MonkeyCode
         {
             try
             {
-                if (ScanBuffer[ScanPointer + 0] != '+' && ScanBuffer[ScanPointer + 0] != '+') { return false; }
+                if (ScanBuffer[ScanPointer + 0] != '+' && ScanBuffer[ScanPointer + 0] != '+')
+                {
+                    return false;
+                }
                 ScanPointer += 1;
                 return true;
             }
@@ -338,12 +506,19 @@ namespace MonkeyCode
                 return false;
             }
         }
+
         private bool ScanOperatorMinus()
         {
             try
             {
-                if (ScanBuffer[ScanPointer + 0] != '-' && ScanBuffer[ScanPointer + 0] != '-') { return false; }
-                if (IsNumericChar(ScanBuffer[ScanPointer + 1])) { return false; }
+                if (ScanBuffer[ScanPointer + 0] != '-' && ScanBuffer[ScanPointer + 0] != '-')
+                {
+                    return false;
+                }
+                if (IsNumericChar(ScanBuffer[ScanPointer + 1]))
+                {
+                    return false;
+                }
                 ScanPointer += 1;
                 return true;
             }
@@ -352,11 +527,15 @@ namespace MonkeyCode
                 return false;
             }
         }
+
         private bool ScanOperatorMultiply()
         {
             try
             {
-                if (ScanBuffer[ScanPointer + 0] != '*' && ScanBuffer[ScanPointer + 0] != '*') { return false; }
+                if (ScanBuffer[ScanPointer + 0] != '*' && ScanBuffer[ScanPointer + 0] != '*')
+                {
+                    return false;
+                }
                 ScanPointer += 1;
                 return true;
             }
@@ -365,11 +544,15 @@ namespace MonkeyCode
                 return false;
             }
         }
+
         private bool ScanOperatorDivide()
         {
             try
             {
-                if (ScanBuffer[ScanPointer + 0] != '/' && ScanBuffer[ScanPointer + 0] != '/') { return false; }
+                if (ScanBuffer[ScanPointer + 0] != '/' && ScanBuffer[ScanPointer + 0] != '/')
+                {
+                    return false;
+                }
                 ScanPointer += 1;
                 return true;
             }

@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MonkeyCode
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("--- MonkeyCode ---");
             while (true)
@@ -29,7 +26,7 @@ namespace MonkeyCode
                     var code = asmGenerator.GenerateCode();
                     using (var w = new StreamWriter("./codefile.txt", true))
                     {
-                       w.Write(";" + inputString + "\r\n" + code + "\r\n\r\n");
+                        w.Write(";" + inputString + "\r\n" + code + "\r\n\r\n");
                     }
                     Console.WriteLine("Done.");
                 }

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MonkeyCode
+﻿namespace MonkeyCode
 {
-    class Symbol
+    internal class Symbol
     {
         public string Name { get; set; }
         public SymbolLocation Location { get; set; }

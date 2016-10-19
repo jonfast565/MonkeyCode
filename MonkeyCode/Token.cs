@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MonkeyCode
+﻿namespace MonkeyCode
 {
-    class Token
+    internal class Token
     {
         public Token(TokenType type)
         {

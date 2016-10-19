@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MonkeyCode
+﻿namespace MonkeyCode
 {
-    class IntegerLiteral : IValue
+    internal class IntegerLiteral : IValue
     {
         public int Value { get; set; }
 

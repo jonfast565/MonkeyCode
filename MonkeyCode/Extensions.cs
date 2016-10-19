@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MonkeyCode
 {
-    static class Extensions
+    internal static class Extensions
     {
         public static InstructionOpcode GetInstructionOpcode(this TokenType type)
         {

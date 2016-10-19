@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MonkeyCode
+﻿namespace MonkeyCode
 {
-    enum InstructionOpcode
+    internal enum InstructionOpcode
     {
         None = 0,
         Add,

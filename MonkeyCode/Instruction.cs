@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MonkeyCode
+﻿namespace MonkeyCode
 {
-    class Instruction
+    internal class Instruction
     {
         public InstructionOpcode Opcode { get; set; }
         public IValue Value1 { get; set; }

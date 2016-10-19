@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MonkeyCode
+﻿namespace MonkeyCode
 {
-    enum TokenType
+    internal enum TokenType
     {
         BooleanTypeKeyword,
         IntegerTypeKeyword,
@@ -30,6 +24,6 @@ namespace MonkeyCode
         Plus,
         Minus,
         Multiply,
-        Divide,
+        Divide
     }
 }

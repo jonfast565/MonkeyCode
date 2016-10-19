@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MonkeyCode
 {
-    class IntelGenerator
+    internal class IntelGenerator
     {
         public IntelGenerator(List<Instruction> instructionList)
         {
@@ -18,7 +14,7 @@ namespace MonkeyCode
         public string GenerateCode()
         {
             var result =
-@"
+                @"
 %include ""io.inc""
 section .text
 global CMAIN
@@ -57,7 +53,7 @@ CMAIN:
                         || instruction.Opcode == InstructionOpcode.Divide)
                     {
                         result += "\t" + instruction.Opcode.GetIntelInstructionOpcode()
-                            + "[ebp - " + sym.Offset + "]\r\n";
+                                  + "[ebp - " + sym.Offset + "]\r\n";
                     }
                     else
                     {

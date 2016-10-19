@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MonkeyCode
 {
-    class Parser
+    internal class Parser
     {
-        public List<Token> TokenList { get; set; }
-
-        public int TokenPointer { get; set; }
-
         public Parser(List<Token> tokenList)
         {
             TokenList = tokenList;
             TokenPointer = 0;
         }
+
+        public List<Token> TokenList { get; set; }
+
+        public int TokenPointer { get; set; }
 
         public IEnumerable<ISemanticObject> Parse()
         {
@@ -46,7 +43,7 @@ namespace MonkeyCode
             var opStack = new Stack<BinaryExpressionNode>();
             foreach (var token in tokens)
             {
-                if (token.Type == TokenType.Plus||
+                if (token.Type == TokenType.Plus ||
                     token.Type == TokenType.Minus ||
                     token.Type == TokenType.Multiply ||
                     token.Type == TokenType.Divide)
@@ -183,7 +180,7 @@ namespace MonkeyCode
                         {
                             var top = opStack.Peek();
                             if (GetOperatorPrecendence(top.Type) <
-                                    GetOperatorPrecendence(token.Type))
+                                GetOperatorPrecendence(token.Type))
                             {
                                 break;
                             }
