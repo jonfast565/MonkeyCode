@@ -38,8 +38,13 @@ namespace MonkeyCode
 
         public ISemanticObject ParseExpression()
         {
+            var savedPointer = TokenPointer;
             ValidateExpression();
-            var tokens = ToPostOrder(TokenList.Where(x => x.Type != TokenType.OperatorSemicolon));
+            var parsed = TokenList
+                .Skip(savedPointer)
+                .Take(TokenPointer - savedPointer);
+            var tokens = ToPostOrder(parsed
+                .Where(x => x.Type != TokenType.OperatorSemicolon));
             var opStack = new Stack<BinaryExpressionNode>();
             foreach (var token in tokens)
             {
