@@ -24,7 +24,7 @@ namespace MonkeyCode
                 ISemanticObject s;
                 try
                 {
-                    s = ParseExpression();
+                    s = ParseAssignmentStatement();
                     Match(TokenType.OperatorSemicolon);
                 }
                 catch (Exception e)
@@ -36,8 +36,10 @@ namespace MonkeyCode
             return exprList;
         }
 
-        public ISemanticObject ParseExpression()
+        public ISemanticObject ParseAssignmentStatement()
         {
+            var id = Match(TokenType.Identifier);
+            Match(TokenType.OperatorEquals);
             var savedPointer = TokenPointer;
             ValidateExpression();
             var parsed = TokenList
@@ -71,16 +73,26 @@ namespace MonkeyCode
                     opStack.Push(new BinaryExpressionNode(token, false));
                 }
             }
-            return opStack.Pop();
+
+            return new AssignmentStatement
+            {
+                Result = new Identifier
+                {
+                    Name = id.Lexeme
+                },
+                Expression = opStack.Pop()
+            };
         }
 
-        private void Match(TokenType t1)
+        private Token Match(TokenType t1)
         {
             if (!CondMatch(t1))
             {
                 throw new Exception($"No matching token {t1}");
             }
+            var token = TokenList[TokenPointer];
             TokenPointer++;
+            return token;
         }
 
         private bool CondMatch(TokenType t1)
@@ -138,11 +150,15 @@ namespace MonkeyCode
 
         private void ValidateParentheticalSubExpression()
         {
-            if (!CondMatch(TokenType.Integer))
+            if (!CondMatch(TokenType.Integer) && !CondMatch(TokenType.Identifier))
             {
                 Match(TokenType.OperatorLeftParen);
                 ValidateExpression();
                 Match(TokenType.OperatorRightParen);
+            }
+            else if (!CondMatch(TokenType.Integer))
+            {
+                Match(TokenType.Identifier);
             }
             else
             {

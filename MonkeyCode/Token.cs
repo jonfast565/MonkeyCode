@@ -1,6 +1,6 @@
 ﻿namespace MonkeyCode
 {
-    internal class Token
+    public class Token
     {
         public Token(TokenType type)
         {

@@ -1,6 +1,6 @@
 ﻿namespace MonkeyCode
 {
-    internal enum TokenType
+    public enum TokenType
     {
         BooleanTypeKeyword,
         IntegerTypeKeyword,

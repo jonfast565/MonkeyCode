@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MonkeyCode
 {
-    internal class BinaryExpressionNode : ISemanticObject
+    public class BinaryExpressionNode : ISemanticObject
     {
         public BinaryExpressionNode(Token token, bool isOperator, IValue value = null)
         {
@@ -46,19 +46,35 @@ namespace MonkeyCode
             // only operator needed, access one below for folding
             if (!node.IsOperator) return instructionList;
 
+
+
             instructionList.Add(new Instruction
             {
                 Opcode = node.Token.Type.GetInstructionOpcode(),
                 Value1 = node.RightChild.IsOperator
                     ? new Identifier { Name = node.RightChild.Intermediate }
-                    : (IValue)new IntegerLiteral { Value = Convert.ToInt32(node.RightChild.Token.Lexeme) },
+                    : GetConvertedTokenValue(node.RightChild.Token),
                 Value2 = node.LeftChild.IsOperator
                     ? new Identifier { Name = node.LeftChild.Intermediate }
-                    : (IValue)new IntegerLiteral { Value = Convert.ToInt32(node.LeftChild.Token.Lexeme) },
-                Result = new Identifier { Name = node.Intermediate }
+                    : GetConvertedTokenValue(node.LeftChild.Token), 
+                // (IValue)new IntegerLiteral { Value = Convert.ToInt32(node.LeftChild.Token.Lexeme) },
+                Target = new Identifier { Name = node.Intermediate }
             });
 
             return instructionList;
+        }
+
+        private IValue GetConvertedTokenValue(Token token) 
+        {
+            if (token.Type == TokenType.Integer)
+            {
+                return new IntegerLiteral {Value = Convert.ToInt32(token.Lexeme)};
+            }
+            if (token.Type == TokenType.Identifier)
+            {
+                return new Identifier {Name = token.Lexeme};
+            }
+            throw new Exception("Unsupported value conversion in expression");
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace MonkeyCode
 {
-    internal class Identifier : IValue
+    public class Identifier : IValue
     {
         public string Name { get; set; }
         public bool Temporary { get; set; }

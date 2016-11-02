@@ -1,11 +1,13 @@
 ﻿namespace MonkeyCode
 {
-    internal enum InstructionOpcode
+    public enum InstructionOpcode
     {
         None = 0,
+        Move,
         Add,
         Subtract,
         Multiply,
-        Divide
+        Divide,
+        Allocate
     }
 }

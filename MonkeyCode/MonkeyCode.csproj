@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssignmentStatement.cs" />
     <Compile Include="BinaryExpressionNode.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Identifier.cs" />

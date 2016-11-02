@@ -1,6 +1,6 @@
 ﻿namespace MonkeyCode
 {
-    internal interface IValue
+    public interface IValue
     {
         string GetValue();
     }
