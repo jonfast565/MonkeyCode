@@ -112,26 +112,36 @@ namespace MonkeyCode
                 || instruction.Opcode == InstructionOpcode.Multiply
                 || instruction.Opcode == InstructionOpcode.Divide)
             {
-                SymbolTable.Add(instruction.Target.Name, new Symbol
+                if (!SymbolTable.ContainsKey(instruction.Target.Name))
                 {
-                    Location = SymbolLocation.Stack,
-                    Name = instruction.Target.Name,
-                    Offset = StackOffset*IntegerOffset
-                });
-                StackOffset++;
-                return "\tpush eax\r\n";
+                    SymbolTable.Add(instruction.Target.Name, new Symbol
+                    {
+                        Location = SymbolLocation.Stack,
+                        Name = instruction.Target.Name,
+                        Offset = StackOffset * IntegerOffset
+                    });
+                    StackOffset++;
+                    return "\tpush eax\r\n";
+                }
+                var symTarget = SymbolTable[instruction.Target.GetValue()];
+                return "\tmov [ebp - " + symTarget.Offset + "], eax\r\n";
             }
 
             if (instruction.Opcode == InstructionOpcode.Allocate)
             {
-                SymbolTable.Add(instruction.Source.Name, new Symbol
+                if (!SymbolTable.ContainsKey(instruction.Source.Name))
                 {
-                    Location = SymbolLocation.Stack,
-                    Name = instruction.Source.Name,
-                    Offset = StackOffset * IntegerOffset
-                });
-                StackOffset++;
-                return "\tpush 0\r\n";
+                    SymbolTable.Add(instruction.Source.Name, new Symbol
+                    {
+                        Location = SymbolLocation.Stack,
+                        Name = instruction.Source.Name,
+                        Offset = StackOffset * IntegerOffset
+                    });
+                    StackOffset++;
+                    return "\tpush 0\r\n";
+                }
+                var symTarget = SymbolTable[instruction.Source.GetValue()];
+                return "\tmov [ebp - " + symTarget.Offset + "], eax\r\n";
             }
 
             return string.Empty;
