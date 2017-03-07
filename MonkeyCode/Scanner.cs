@@ -41,7 +41,8 @@ namespace MonkeyCode
                    || character == ';'
                    || character == '\''
                    || character == '/'
-                   || character == '@';
+                   || character == '@'
+                   || character == '=';
         }
 
         private bool IsWhitespace(char character)
@@ -745,17 +746,10 @@ namespace MonkeyCode
             var counter = 0;
             try
             {
-                while (!IsBreakChar(ScanBuffer[ScanPointer + counter]))
+                while (IsIdentifierChar(ScanBuffer[ScanPointer + counter]))
                 {
-                    if (IsIdentifierChar(ScanBuffer[ScanPointer + counter]))
-                    {
-                        value += ScanBuffer[ScanPointer + counter];
-                        counter++;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    value += ScanBuffer[ScanPointer + counter];
+                    counter++;
                 }
                 ScanPointer += counter;
                 return !string.IsNullOrEmpty(value);

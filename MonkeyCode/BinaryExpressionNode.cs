@@ -33,20 +33,18 @@ namespace MonkeyCode
 
         private List<Instruction> GetInstructionsInternal(BinaryExpressionNode node, List<Instruction> instructionList)
         {
-            if (node.LeftChild.IsOperator)
+            if (node.LeftChild != null && node.LeftChild.IsOperator)
             {
                 GetInstructionsInternal(node.LeftChild, instructionList);
             }
 
-            if (node.RightChild.IsOperator)
+            if (node.RightChild != null && node.RightChild.IsOperator)
             {
                 GetInstructionsInternal(node.RightChild, instructionList);
             }
 
             // only operator needed, access one below for folding
             if (!node.IsOperator) return instructionList;
-
-
 
             instructionList.Add(new Instruction
             {
