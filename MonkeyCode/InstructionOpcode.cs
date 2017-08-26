@@ -8,6 +8,10 @@
         Subtract,
         Multiply,
         Divide,
-        Allocate
+        Allocate,
+        Label,
+        Compare,
+        Jump,
+        Print
     }
 }

@@ -2,7 +2,7 @@
 
 namespace MonkeyCode
 {
-    internal interface ISemanticObject
+    public interface ISemanticObject
     {
         List<Instruction> AppendInstructions(List<Instruction> instructionList);
     }

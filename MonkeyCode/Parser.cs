@@ -16,6 +16,11 @@ namespace MonkeyCode
 
         public int TokenPointer { get; set; }
 
+        public Token GetCurrentLookahead()
+        {
+            return TokenList.ElementAt(TokenPointer);
+        }
+
         public IEnumerable<ISemanticObject> Parse()
         {
             var exprList = new List<ISemanticObject>();
@@ -24,8 +29,12 @@ namespace MonkeyCode
                 ISemanticObject s;
                 try
                 {
-                    s = ParseAssignmentStatement();
-                    Match(TokenType.OperatorSemicolon);
+                    switch (GetCurrentLookahead().Type)
+                    {
+                        case TokenType.Identifier:
+                            s = ParseAssignmentStatement();
+                            break;
+                    }
                 }
                 catch (Exception e)
                 {
@@ -42,6 +51,7 @@ namespace MonkeyCode
             Match(TokenType.OperatorEquals);
             var savedPointer = TokenPointer;
             ValidateExpression();
+            Match(TokenType.OperatorSemicolon);
             var parsed = TokenList
                 .Skip(savedPointer)
                 .Take(TokenPointer - savedPointer);

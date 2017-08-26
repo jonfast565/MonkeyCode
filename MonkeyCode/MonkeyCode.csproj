@@ -45,8 +45,10 @@
   <ItemGroup>
     <Compile Include="AssignmentStatement.cs" />
     <Compile Include="BinaryExpressionNode.cs" />
+    <Compile Include="BreakStatement.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Identifier.cs" />
+    <Compile Include="InfiniteLoopControlBlock.cs" />
     <Compile Include="InstructionBuilder.cs" />
     <Compile Include="Instruction.cs" />
     <Compile Include="InstructionOpcode.cs" />
@@ -65,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="testfile.mc" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -24,6 +24,9 @@
         Plus,
         Minus,
         Multiply,
-        Divide
+        Divide,
+        InfiniteKeyword,
+        BreakKeyword,
+        IfKeyword
     }
 }
