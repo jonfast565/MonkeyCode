@@ -79,6 +79,150 @@ namespace MonkeyCode
             return tokenList;
         }
 
+        private bool ScanForeverKeyword()
+        {
+            try
+            {
+                if (ScanBuffer[ScanPointer + 0] != 'F' && ScanBuffer[ScanPointer + 0] != 'f')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 1] != 'O' && ScanBuffer[ScanPointer + 1] != 'o')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 2] != 'R' && ScanBuffer[ScanPointer + 2] != 'r')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 3] != 'E' && ScanBuffer[ScanPointer + 3] != 'e')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 4] != 'V' && ScanBuffer[ScanPointer + 4] != 'v')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 5] != 'E' && ScanBuffer[ScanPointer + 5] != 'e')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 6] != 'R' && ScanBuffer[ScanPointer + 6] != 'r')
+                {
+                    return false;
+                }
+                if (IsIdentifierChar(ScanBuffer[ScanPointer + 7]))
+                {
+                    return false;
+                }
+                ScanPointer += 7;
+                return true;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return false;
+            }
+        }
+
+        private bool ScanPrintKeyword()
+        {
+            try
+            {
+                if (ScanBuffer[ScanPointer + 0] != 'P' && ScanBuffer[ScanPointer + 0] != 'p')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 1] != 'R' && ScanBuffer[ScanPointer + 1] != 'r')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 2] != 'I' && ScanBuffer[ScanPointer + 2] != 'i')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 3] != 'N' && ScanBuffer[ScanPointer + 3] != 'n')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 4] != 'T' && ScanBuffer[ScanPointer + 4] != 't')
+                {
+                    return false;
+                }
+                if (IsIdentifierChar(ScanBuffer[ScanPointer + 5]))
+                {
+                    return false;
+                }
+                ScanPointer += 5;
+                return true;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return false;
+            }
+        }
+
+        private bool ScanBreakKeyword()
+        {
+            try
+            {
+                if (ScanBuffer[ScanPointer + 0] != 'B' && ScanBuffer[ScanPointer + 0] != 'b')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 1] != 'R' && ScanBuffer[ScanPointer + 1] != 'r')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 2] != 'E' && ScanBuffer[ScanPointer + 2] != 'e')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 3] != 'A' && ScanBuffer[ScanPointer + 3] != 'a')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 4] != 'K' && ScanBuffer[ScanPointer + 4] != 'k')
+                {
+                    return false;
+                }
+                if (IsIdentifierChar(ScanBuffer[ScanPointer + 5]))
+                {
+                    return false;
+                }
+                ScanPointer += 5;
+                return true;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return false;
+            }
+        }
+
+        private bool ScanIfKeyword()
+        {
+            try
+            {
+                if (ScanBuffer[ScanPointer + 0] != 'I' && ScanBuffer[ScanPointer + 0] != 'i')
+                {
+                    return false;
+                }
+                if (ScanBuffer[ScanPointer + 1] != 'F' && ScanBuffer[ScanPointer + 1] != 'f')
+                {
+                    return false;
+                }
+                if (IsIdentifierChar(ScanBuffer[ScanPointer + 2]))
+                {
+                    return false;
+                }
+                ScanPointer += 2;
+                return true;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return false;
+            }
+        }
+
         private bool ScanBooleanTypeKeyword()
         {
             try
@@ -257,6 +401,40 @@ namespace MonkeyCode
             try
             {
                 if (ScanBuffer[ScanPointer + 0] != ')' && ScanBuffer[ScanPointer + 0] != ')')
+                {
+                    return false;
+                }
+                ScanPointer += 1;
+                return true;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return false;
+            }
+        }
+
+        private bool ScanOperatorLeftBracket()
+        {
+            try
+            {
+                if (ScanBuffer[ScanPointer + 0] != '{' && ScanBuffer[ScanPointer + 0] != '{')
+                {
+                    return false;
+                }
+                ScanPointer += 1;
+                return true;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return false;
+            }
+        }
+
+        private bool ScanOperatorRightBracket()
+        {
+            try
+            {
+                if (ScanBuffer[ScanPointer + 0] != '}' && ScanBuffer[ScanPointer + 0] != '}')
                 {
                     return false;
                 }
@@ -577,6 +755,14 @@ namespace MonkeyCode
             {
                 return new Token(TokenType.OperatorRightParen);
             }
+            if (ScanOperatorLeftBracket())
+            {
+                return new Token(TokenType.OperatorLeftBracket);
+            }
+            if (ScanOperatorRightBracket())
+            {
+                return new Token(TokenType.OperatorRightBracket);
+            }
             if (ScanOperatorSemicolon())
             {
                 return new Token(TokenType.OperatorSemicolon);
@@ -643,6 +829,18 @@ namespace MonkeyCode
             if (ScanFloatTypeKeyword())
             {
                 return new Token(TokenType.FloatTypeKeyword);
+            }
+            if (ScanBreakKeyword())
+            {
+                return new Token(TokenType.BreakKeyword);
+            }
+            if (ScanForeverKeyword())
+            {
+                return new Token(TokenType.ForeverKeyword);
+            }
+            if (ScanIfKeyword())
+            {
+                return new Token(TokenType.IfKeyword);
             }
 
             // literals

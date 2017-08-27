@@ -34,6 +34,11 @@ namespace MonkeyCode
                         case TokenType.Identifier:
                             s = ParseAssignmentStatement();
                             break;
+                        case TokenType.ForeverKeyword:
+                            s = ParseForeverStatement();
+                            break;
+                        default:
+                            throw new Exception("Lookahead not recognized");
                     }
                 }
                 catch (Exception e)
@@ -45,13 +50,61 @@ namespace MonkeyCode
             return exprList;
         }
 
-        public ISemanticObject ParseAssignmentStatement()
+        private IEnumerable<ISemanticObject> ParseBlockStatements()
         {
+            var assignmentList = new List<ISemanticObject>();
+            while (GetCurrentLookahead().Type != TokenType.OperatorRightBracket)
+            {
+                switch (GetCurrentLookahead().Type)
+                {
+                    case TokenType.Identifier:
+                        var expr = ParseAssignmentStatement();
+                        assignmentList.Add(expr);
+                        break;
+                    case TokenType.BreakKeyword:
+                        expr = ParseBreakStatement();
+                        assignmentList.Add(expr);
+                        break;
+                    case TokenType.PrintKeyword:
+                        expr = ParsePrintStatement();
+                        assignmentList.Add(expr);
+                        break;
+                        
+                }
+                var s = ParseAssignmentStatement();
+                assignmentList.Add(s);
+            }
+            return assignmentList;
+        }
+
+        private ISemanticObject ParsePrintStatement()
+        {
+            Match(TokenType.PrintKeyword);
             var id = Match(TokenType.Identifier);
-            Match(TokenType.OperatorEquals);
+            return new PrintStatement
+            {
+                Identifier = new Identifier { Name = id.Lexeme }
+            };
+        }
+
+        private ISemanticObject ParseBreakStatement()
+        {
+            throw new NotImplementedException();
+        }
+
+        private ISemanticObject ParseForeverStatement()
+        {
+            Match(TokenType.ForeverKeyword);
+            Match(TokenType.OperatorLeftBracket);
+            var exprList = ParseBlockStatements();
+            Match(TokenType.OperatorRightBracket);
+            return new InfiniteLoopControlBlock(exprList.ToList());
+        }
+
+        private BinaryExpressionNode ParseAndReturnExpression()
+        {
             var savedPointer = TokenPointer;
             ValidateExpression();
-            Match(TokenType.OperatorSemicolon);
             var parsed = TokenList
                 .Skip(savedPointer)
                 .Take(TokenPointer - savedPointer);
@@ -83,14 +136,22 @@ namespace MonkeyCode
                     opStack.Push(new BinaryExpressionNode(token, false));
                 }
             }
+            return opStack.Pop();
+        }
 
+        public ISemanticObject ParseAssignmentStatement()
+        {
+            var id = Match(TokenType.Identifier);
+            Match(TokenType.OperatorEquals);
+            var expr = ParseAndReturnExpression();
+            Match(TokenType.OperatorSemicolon);
             return new AssignmentStatement
             {
                 Result = new Identifier
                 {
                     Name = id.Lexeme
                 },
-                Expression = opStack.Pop()
+                Expression = expr
             };
         }
 

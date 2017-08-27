@@ -27,6 +27,10 @@
         Divide,
         InfiniteKeyword,
         BreakKeyword,
-        IfKeyword
+        IfKeyword,
+        ForeverKeyword,
+        OperatorLeftBracket,
+        OperatorRightBracket,
+        PrintKeyword
     }
 }

@@ -12,6 +12,9 @@
         Label,
         Compare,
         Jump,
-        Print
+        Print,
+        Push,
+        Pop,
+        Call
     }
 }

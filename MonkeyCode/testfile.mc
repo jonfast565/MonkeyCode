@@ -1,5 +1,6 @@
-﻿a = 2+3;
-b = 3+5;
-c = a+b;
-d = a+c;
-e = a+b+c+d;
+﻿forever 
+{
+	a = a+1;
+	print a;
+	break if a > 100;
+}
