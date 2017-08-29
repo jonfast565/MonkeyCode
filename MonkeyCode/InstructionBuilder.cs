@@ -18,10 +18,7 @@ namespace MonkeyCode
 
             foreach (var block in _semanticBlockList)
             {
-                if (block.GetType() == typeof(AssignmentStatement))
-                {
-                    ((AssignmentStatement)block).AppendInstructions(instructionList);
-                }
+                block.AppendInstructions(instructionList);
             }
 
             return instructionList;

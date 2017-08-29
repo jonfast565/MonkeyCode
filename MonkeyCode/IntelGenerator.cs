@@ -96,6 +96,21 @@ namespace MonkeyCode
 
         public string IntermediateProcessing(Instruction instruction)
         {
+            if (instruction.Opcode == InstructionOpcode.Label)
+            {
+                return instruction.Target.Name + ":\r\n";
+            }
+
+            if (instruction.Opcode == InstructionOpcode.Call)
+            {
+                return "\tcall " + instruction.Target.Name + "\r\n";
+            }
+
+            if (instruction.Opcode == InstructionOpcode.Jump)
+            {
+                return "\tjmp " + instruction.Target.Name + "\r\n";
+            }
+
             if (instruction.Opcode == InstructionOpcode.Multiply ||
                     instruction.Opcode == InstructionOpcode.Divide)
             {
@@ -165,7 +180,9 @@ namespace MonkeyCode
         public string GetProgramPrologue()
         {
             return @"
-%include ""io.inc""
+extern printf
+section .data
+    int_format: db '%d', 10, 0
 section .text
 global CMAIN
 CMAIN:
