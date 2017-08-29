@@ -14,19 +14,23 @@ namespace MonkeyCode
         public List<Instruction> AppendInstructions(List<Instruction> instructionList)
         {
             var expressionId = Expression.Intermediate;
+
             instructionList.Add(new Instruction
             {
                 Opcode = InstructionOpcode.Allocate,
                 Source = Result,
                 Target = Result
             });
+
             Expression.AppendInstructions(instructionList);
+
             instructionList.Add(new Instruction
             {
                 Opcode = InstructionOpcode.Move,
                 Source = new Identifier { Name = expressionId },
                 Target = Result
             });
+
             return instructionList;
         }
     }

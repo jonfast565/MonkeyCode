@@ -15,6 +15,7 @@ namespace MonkeyCode
         public List<Instruction> Build()
         {
             var instructionList = new List<Instruction>();
+
             foreach (var block in _semanticBlockList)
             {
                 if (block.GetType() == typeof(AssignmentStatement))

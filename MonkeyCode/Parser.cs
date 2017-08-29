@@ -52,29 +52,26 @@ namespace MonkeyCode
 
         private IEnumerable<ISemanticObject> ParseBlockStatements()
         {
-            var assignmentList = new List<ISemanticObject>();
+            var statementList = new List<ISemanticObject>();
             while (GetCurrentLookahead().Type != TokenType.OperatorRightBracket)
             {
                 switch (GetCurrentLookahead().Type)
                 {
                     case TokenType.Identifier:
                         var expr = ParseAssignmentStatement();
-                        assignmentList.Add(expr);
+                        statementList.Add(expr);
                         break;
                     case TokenType.BreakKeyword:
                         expr = ParseBreakStatement();
-                        assignmentList.Add(expr);
+                        statementList.Add(expr);
                         break;
                     case TokenType.PrintKeyword:
                         expr = ParsePrintStatement();
-                        assignmentList.Add(expr);
+                        statementList.Add(expr);
                         break;
-                        
                 }
-                var s = ParseAssignmentStatement();
-                assignmentList.Add(s);
             }
-            return assignmentList;
+            return statementList;
         }
 
         private ISemanticObject ParsePrintStatement()

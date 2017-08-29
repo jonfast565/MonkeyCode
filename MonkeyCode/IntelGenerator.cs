@@ -185,7 +185,6 @@ CMAIN:
                 result += PopResultValueIntoLoc(instruction);
             }
             result += RewindStack();
-            result += "\tPRINT_DEC 4, eax\r\n";
             result += GenerateFunctionEpilogue();
             return result;
         }
