@@ -68,9 +68,6 @@ namespace MonkeyCode
                     }
                 }
 
-
-
-
                 if (instruction.Value2.GetType() == typeof(IntegerLiteral))
                 {
                     if (instruction.Opcode == InstructionOpcode.Divide
@@ -94,23 +91,23 @@ namespace MonkeyCode
             return string.Empty;
         }
 
+        public string BuildLabel(Instruction instruction)
+        {
+            return instruction.Target.Name + ":\r\n";
+        }
+
+        public string BuildCall(Instruction instruction)
+        {
+            return "\tcall " + instruction.Target.Name + "\r\n";
+        }
+
+        public string BuildJump(Instruction instruction)
+        {
+            return "\tjmp " + instruction.Target.Name + "\r\n";
+        }
+
         public string IntermediateProcessing(Instruction instruction)
         {
-            if (instruction.Opcode == InstructionOpcode.Label)
-            {
-                return instruction.Target.Name + ":\r\n";
-            }
-
-            if (instruction.Opcode == InstructionOpcode.Call)
-            {
-                return "\tcall " + instruction.Target.Name + "\r\n";
-            }
-
-            if (instruction.Opcode == InstructionOpcode.Jump)
-            {
-                return "\tjmp " + instruction.Target.Name + "\r\n";
-            }
-
             if (instruction.Opcode == InstructionOpcode.Multiply ||
                     instruction.Opcode == InstructionOpcode.Divide)
             {
@@ -195,11 +192,29 @@ CMAIN:
             result += GenerateFunctionPrologue();
             foreach (var instruction in InstructionList)
             {
-                result += LoadValue1(instruction);
-                result += IntermediateProcessing(instruction);
-                result += PerformOpOnValue2(instruction);
-                result += StoreResultValue(instruction);
-                result += PopResultValueIntoLoc(instruction);
+                switch (instruction.Opcode)
+                {
+                    case InstructionOpcode.Add:
+                    case InstructionOpcode.Subtract:
+                    case InstructionOpcode.Multiply:
+                    case InstructionOpcode.Divide:
+                    case InstructionOpcode.Allocate:
+                        result += LoadValue1(instruction);
+                        result += IntermediateProcessing(instruction);
+                        result += PerformOpOnValue2(instruction);
+                        result += StoreResultValue(instruction);
+                        result += PopResultValueIntoLoc(instruction);
+                        break;
+                    case InstructionOpcode.Label:
+                        result += BuildLabel(instruction);
+                        break;
+                    case InstructionOpcode.Call:
+                        result += BuildCall(instruction);
+                        break;
+                    case InstructionOpcode.Jump:
+                        result += BuildJump(instruction);
+                        break;
+                }
             }
             result += RewindStack();
             result += GenerateFunctionEpilogue();

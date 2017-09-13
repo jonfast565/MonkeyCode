@@ -43,7 +43,6 @@ namespace MonkeyCode
                 GetInstructionsInternal(node.RightChild, instructionList);
             }
 
-            // only operator needed, access one below for folding
             if (!node.IsOperator) return instructionList;
 
             instructionList.Add(new Instruction
@@ -55,7 +54,6 @@ namespace MonkeyCode
                 Value2 = node.LeftChild.IsOperator
                     ? new Identifier { Name = node.LeftChild.Intermediate }
                     : GetConvertedTokenValue(node.LeftChild.Token), 
-                // (IValue)new IntegerLiteral { Value = Convert.ToInt32(node.LeftChild.Token.Lexeme) },
                 Target = new Identifier { Name = node.Intermediate }
             });
 
